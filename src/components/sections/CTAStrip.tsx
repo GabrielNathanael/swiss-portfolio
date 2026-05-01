@@ -28,7 +28,7 @@ export function CTAStrip() {
             start: "top 80%",
             once: true,
           },
-        }
+        },
       );
     }, sectionRef);
 
@@ -36,16 +36,13 @@ export function CTAStrip() {
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="py-24 md:py-36 overflow-hidden"
-    >
+    <section ref={sectionRef} className="py-24 md:py-36 overflow-hidden">
       <AnimatedBorder />
       <div className="container-grid">
         <div className="cta-text">
           {/* Eyebrow */}
           <span
-            className="text-label text-[var(--color-accent)] block mb-6"
+            className="text-label text-accent block mb-6"
             style={{ fontFamily: "var(--font-mono)" }}
           >
             06 / LET'S CONNECT
@@ -53,7 +50,7 @@ export function CTAStrip() {
 
           {/* Main text */}
           <h2
-            className="font-bold text-[var(--color-text-primary)] leading-none tracking-tight"
+            className="font-bold text-text-primary leading-none tracking-tight"
             style={{
               fontFamily: "var(--font-display)",
               fontSize: "clamp(2.5rem, 7vw, 7rem)",
@@ -71,15 +68,18 @@ export function CTAStrip() {
               something
             </span>
             <br />
-            <span className="text-[var(--color-accent)]">together.</span>
+            <span className="text-accent">together.</span>
           </h2>
 
           {/* Action row */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6" style={{ marginTop: "3.5rem", paddingBottom: "2rem" }}>
+          <div
+            className="flex flex-col sm:flex-row items-start sm:items-center gap-6"
+            style={{ marginTop: "3.5rem", paddingBottom: "2rem" }}
+          >
             <motion.div whileHover={{ x: 6 }} transition={{ duration: 0.2 }}>
               <Link
                 href="/contact"
-                className="group inline-flex items-center gap-4 bg-[var(--color-accent)] text-[#F4F1EC] px-8 py-4 font-bold tracking-tight transition-colors duration-300 hover:bg-[var(--color-accent-hover)]"
+                className="group inline-flex items-center gap-4 bg-accent text-bg px-8 py-4 font-bold tracking-tight transition-colors duration-300 hover:bg-accent-hover"
                 style={{
                   fontFamily: "var(--font-display)",
                   fontSize: "1rem",
@@ -106,11 +106,11 @@ export function CTAStrip() {
             </motion.div>
 
             <a
-              href="mailto:gabriel@example.com"
-              className="text-label text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-300"
+              href="mailto:gabrielnathanael81@gmail.com"
+              className="text-label text-text-secondary hover:text-accent transition-colors duration-300"
               style={{ fontFamily: "var(--font-mono)" }}
             >
-              gabriel@example.com
+              gabrielnathanael81@gmail.com
             </a>
           </div>
         </div>

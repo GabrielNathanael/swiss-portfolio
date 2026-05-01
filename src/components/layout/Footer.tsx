@@ -16,6 +16,11 @@ const footerLinks = [
     label: "Email",
     external: true,
   },
+  {
+    href: "https://www.instagram.com/gabrielnathanaelp/",
+    label: "Instagram",
+    external: true,
+  },
 ];
 
 export function Footer() {

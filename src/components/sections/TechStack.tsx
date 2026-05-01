@@ -52,11 +52,11 @@ export function TechStack({ variant = "landing", sectionNumber = "05" }: TechSta
         {/* Header */}
         <div className="flex items-end justify-between mb-10 md:mb-14">
           <div className="flex items-baseline gap-4">
-            <span className="text-label text-[var(--color-text-tertiary)]">
+            <span className="text-label text-text-tertiary">
               {sectionNumber}
             </span>
             <h2
-              className="font-bold text-[var(--color-text-primary)]"
+              className="font-bold text-text-primary"
               style={{
                 fontFamily: "var(--font-display)",
                 fontSize: "clamp(1.5rem, 3vw, 2.5rem)",
@@ -84,7 +84,7 @@ export function TechStack({ variant = "landing", sectionNumber = "05" }: TechSta
               <div key={cat} className="tech-category-block">
                 {/* Category label */}
                 <p
-                  className="text-label text-[var(--color-accent)] mb-4"
+                  className="text-label text-accent mb-4"
                   style={{ fontFamily: "var(--font-mono)" }}
                 >
                   {techCategories[cat]}
@@ -97,13 +97,13 @@ export function TechStack({ variant = "landing", sectionNumber = "05" }: TechSta
                     return (
                       <li
                         key={tech.name}
-                        className="group flex items-center gap-2.5 py-1.5 border-b border-[var(--color-border)] hover:border-[var(--color-accent)] transition-colors duration-200"
+                        className="group flex items-center gap-2.5 py-1.5 border-b border-border hover:border-accent transition-colors duration-200"
                       >
                         <Icon
                           className={`w-3.5 h-3.5 shrink-0 transition-colors duration-200 ${tech.color} opacity-70 group-hover:opacity-100`}
                         />
                         <span
-                          className="text-sm text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)] transition-colors duration-200"
+                          className="text-sm text-text-secondary group-hover:text-text-primary transition-colors duration-200"
                           style={{ fontFamily: "var(--font-body)" }}
                         >
                           {tech.name}

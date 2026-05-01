@@ -5,7 +5,7 @@ export default function NotFound() {
     <div className="min-h-screen flex flex-col items-center justify-center page-offset text-center px-6">
       {/* Label */}
       <span
-        className="text-label text-[var(--color-accent)] block mb-8"
+        className="text-label text-accent block mb-8"
         style={{ fontFamily: "var(--font-mono)" }}
       >
         404 / NOT FOUND
@@ -26,14 +26,14 @@ export default function NotFound() {
       </h1>
 
       {/* Description */}
-      <p className="text-[var(--color-text-secondary)] mb-10 max-w-sm text-sm leading-relaxed">
+      <p className="text-text-secondary mb-10 max-w-sm text-sm leading-relaxed">
         This page doesn&apos;t exist. Maybe it was moved, or maybe it never existed.
       </p>
 
       {/* Button */}
       <Link
         href="/"
-        className="inline-flex items-center gap-3 bg-[var(--color-accent)] text-[#F4F1EC] px-6 py-3 font-bold text-sm hover:bg-[var(--color-accent-hover)] transition-colors duration-200"
+        className="inline-flex items-center gap-3 bg-accent text-bg px-6 py-3 font-bold text-sm hover:bg-accent-hover transition-colors duration-200"
         style={{ fontFamily: "var(--font-display)", borderRadius: "var(--radius-sm)" }}
       >
         ← Back home

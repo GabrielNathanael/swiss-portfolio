@@ -7,20 +7,20 @@
 
 @theme {
   --font-display: "Syne", sans-serif;
-  --font-body:    "DM Sans", sans-serif;
-  --font-mono:    "Space Mono", monospace;
+  --font-body: "DM Sans", sans-serif;
+  --font-mono: "Space Mono", monospace;
 
   /* Light Mode */
-  --color-bg:             #F4F1EC;
-  --color-surface:        #ECEAE4;
-  --color-surface-2:      #E3E0D9;
-  --color-text-primary:   #111110;
-  --color-text-secondary: #6B6860;
-  --color-text-tertiary:  #9C9A95;
-  --color-accent:         #D4390F;
-  --color-accent-hover:   #B82E09;
-  --color-border:         #D4D0C8;
-  --color-border-strong:  #AEABA4;
+  --color-bg: #f4f1ec;
+  --color-surface: #eceae4;
+  --color-surface-2: #e3e0d9;
+  --color-text-primary: #111110;
+  --color-text-secondary: #6b6860;
+  --color-text-tertiary: #9c9a95;
+  --color-accent: #d4390f;
+  --color-accent-hover: #b82e09;
+  --color-border: #d4d0c8;
+  --color-border-strong: #aeaba4;
 
   --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
   --radius-sm: 2px;
@@ -30,22 +30,28 @@
 
 /* Dark Mode */
 .dark {
-  --color-bg:             #111110;
-  --color-surface:        #1C1C1A;
-  --color-surface-2:      #252523;
-  --color-text-primary:   #F4F1EC;
-  --color-text-secondary: #8C8A85;
-  --color-text-tertiary:  #5C5A56;
-  --color-accent:         #E8501A;
-  --color-accent-hover:   #D4390F;
-  --color-border:         #2E2E2C;
-  --color-border-strong:  #3E3E3C;
+  --color-bg: #111110;
+  --color-surface: #1c1c1a;
+  --color-surface-2: #252523;
+  --color-text-primary: #f4f1ec;
+  --color-text-secondary: #8c8a85;
+  --color-text-tertiary: #5c5a56;
+  --color-accent: #e8501a;
+  --color-accent-hover: #d4390f;
+  --color-border: #2e2e2c;
+  --color-border-strong: #3e3e3c;
 }
 
 /* ============================================
    RESET
    ============================================ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 html {
   font-size: 16px;
@@ -58,7 +64,9 @@ body {
   font-family: var(--font-body);
   background-color: var(--color-bg);
   color: var(--color-text-primary);
-  transition: background-color 400ms ease, color 400ms ease;
+  transition:
+    background-color 400ms ease,
+    color 400ms ease;
   overflow-x: hidden;
   cursor: none;
   display: flex;
@@ -66,13 +74,21 @@ body {
   min-height: 100dvh;
 }
 
-a, button, [role="button"] { cursor: none; }
+a,
+button,
+[role="button"] {
+  cursor: none;
+}
 
 /* ============================================
    TYPOGRAPHY
    ============================================ */
-.font-display { font-family: var(--font-display); }
-.font-mono    { font-family: var(--font-mono); }
+.font-display {
+  font-family: var(--font-display);
+}
+.font-mono {
+  font-family: var(--font-mono);
+}
 
 .text-label {
   font-family: var(--font-mono);
@@ -91,15 +107,27 @@ a, button, [role="button"] { cursor: none; }
   margin-inline: auto;
   padding-inline: 1.25rem;
 }
-@media (min-width: 768px)  { .container-grid { padding-inline: 3rem; } }
-@media (min-width: 1280px) { .container-grid { padding-inline: 5rem; } }
+@media (min-width: 768px) {
+  .container-grid {
+    padding-inline: 3rem;
+  }
+}
+@media (min-width: 1280px) {
+  .container-grid {
+    padding-inline: 5rem;
+  }
+}
 
 .swiss-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 1.25rem;
 }
-@media (min-width: 768px) { .swiss-grid { gap: 1.5rem; } }
+@media (min-width: 768px) {
+  .swiss-grid {
+    gap: 1.5rem;
+  }
+}
 
 /* ============================================
    SPACING — generous, Swiss-appropriate
@@ -111,7 +139,9 @@ a, button, [role="button"] { cursor: none; }
   padding-top: 64px;
 }
 @media (min-width: 768px) {
-  .page-offset { padding-top: 80px; }
+  .page-offset {
+    padding-top: 80px;
+  }
 }
 
 /* Page hero/header block — space below navbar */
@@ -147,24 +177,41 @@ a, button, [role="button"] { cursor: none; }
 /* ============================================
    SCROLLBAR
    ============================================ */
-::-webkit-scrollbar       { width: 3px; }
-::-webkit-scrollbar-track { background: var(--color-bg); }
-::-webkit-scrollbar-thumb { background: var(--color-accent); }
+::-webkit-scrollbar {
+  width: 3px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+}
 
-.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
 
 /* ============================================
    SELECTION
    ============================================ */
-::selection { background-color: var(--color-accent); color: #F4F1EC; }
+::selection {
+  background-color: var(--color-accent);
+  color: #f4f1ec;
+}
 
 /* ============================================
    CUSTOM CURSOR
    ============================================ */
 .cursor-dot {
-  position: fixed; top: 0; left: 0;
-  width: 8px; height: 8px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background-color: var(--color-accent);
   pointer-events: none;
@@ -172,8 +219,11 @@ a, button, [role="button"] { cursor: none; }
 }
 
 .cursor-ring {
-  position: fixed; top: 0; left: 0;
-  width: 36px; height: 36px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: 1.5px solid var(--color-accent);
   pointer-events: none;
@@ -181,10 +231,27 @@ a, button, [role="button"] { cursor: none; }
 }
 
 /* ============================================
+   VIEW TRANSITION — Circular theme reveal
+   ============================================ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+/* ============================================
    PAGE TRANSITION OVERLAY
    ============================================ */
 .page-transition-overlay {
-  position: fixed; inset: 0;
+  position: fixed;
+  inset: 0;
   background-color: var(--color-accent);
   z-index: 9990;
   pointer-events: none;

@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 import { getExperiences } from "@/lib/contentful/api";
 import { ExperiencePageClient } from "./ExperiencePageClient";
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export const metadata: Metadata = {
   title: "Experience",

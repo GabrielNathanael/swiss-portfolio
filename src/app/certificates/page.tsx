@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 import { getCertificates } from "@/lib/contentful/api";
 import { CertificatesPageClient } from "./CertificatesPageClient";
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export const metadata: Metadata = {
   title: "Certificates",

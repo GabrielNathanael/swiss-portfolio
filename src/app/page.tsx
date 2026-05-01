@@ -21,7 +21,7 @@ import { CertificateGlimpse } from "@/components/sections/CertificateGlimpse";
 import { TechStack } from "@/components/sections/TechStack";
 import { CTAStrip } from "@/components/sections/CTAStrip";
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export const metadata: Metadata = {
   alternates: { canonical: "https://www.gabrielnathanael.site" },

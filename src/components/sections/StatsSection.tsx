@@ -123,14 +123,14 @@ export function StatsSection({
       <AnimatedBorder />
       <div className="container-grid section-padding">
         {/* Stats grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-px border border-[var(--color-border)]">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px border border-border">
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="stat-item p-6 md:p-8 bg-[var(--color-surface)]"
+              className="stat-item p-6 md:p-8 bg-surface"
             >
               <div
-                className="font-bold text-[var(--color-text-primary)] leading-none mb-2"
+                className="font-bold text-text-primary leading-none mb-2"
                 style={{
                   fontFamily: "var(--font-display)",
                   fontSize: "clamp(2rem, 4vw, 3.5rem)",
@@ -140,7 +140,7 @@ export function StatsSection({
                 <CountUp value={stat.value} suffix={stat.suffix} />
               </div>
               <p
-                className="text-label text-[var(--color-text-secondary)]"
+                className="text-label text-text-secondary"
                 style={{ fontFamily: "var(--font-mono)" }}
               >
                 {stat.label}
@@ -153,9 +153,9 @@ export function StatsSection({
         {currentJobs.length > 0 && (
           <div className="current-job mt-6 flex flex-col sm:flex-row sm:items-center gap-3">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse shrink-0" />
+              <span className="w-2 h-2 rounded-full bg-accent animate-pulse shrink-0" />
               <span
-                className="text-label text-[var(--color-text-tertiary)]"
+                className="text-label text-text-tertiary"
                 style={{ fontFamily: "var(--font-mono)" }}
               >
                 Currently at
@@ -165,19 +165,19 @@ export function StatsSection({
               {currentJobs.map((job, i) => (
                 <span key={job.id} className="flex items-center gap-3">
                   {i > 0 && (
-                    <span className="text-[var(--color-border)]">·</span>
+                    <span className="text-border">·</span>
                   )}
                   <span
-                    className="font-medium text-[var(--color-text-primary)] text-sm"
+                    className="font-medium text-text-primary text-sm"
                     style={{ fontFamily: "var(--font-body)" }}
                   >
                     {job.company}
                   </span>
-                  <span className="text-[var(--color-text-secondary)] text-sm">
+                  <span className="text-text-secondary text-sm">
                     {job.position}
                   </span>
                   <span
-                    className="text-label text-[var(--color-text-tertiary)]"
+                    className="text-label text-text-tertiary"
                     style={{ fontFamily: "var(--font-mono)" }}
                   >
                     {formatDate(job.startDate)} —

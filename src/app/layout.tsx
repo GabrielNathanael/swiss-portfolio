@@ -9,6 +9,7 @@ import { PageTransition } from "@/components/layout/PageTransition";
 import { LenisProvider } from "@/lib/lenis";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { BackToTop } from "@/components/ui/BackToTop";
+import { Analytics } from "@vercel/analytics/react";
 import "@/app/globals.css";
 
 const BASE_URL = "https://www.gabrielnathanael.site";
@@ -57,7 +58,7 @@ export const metadata: Metadata = {
       "Full Stack Developer based in Indonesia. Building performant, scalable web applications.",
     images: [
       {
-        url: "/opengraph-image.png",
+        url: "/images/avatarful.webp",
         width: 1200,
         height: 630,
         alt: "Gabriel Nathanael Purba — Full Stack Developer",
@@ -69,8 +70,8 @@ export const metadata: Metadata = {
     title: "Gabriel Nathanael Purba — Full Stack Developer",
     description:
       "Full Stack Developer based in Indonesia. Building performant, scalable web applications.",
-    images: ["/opengraph-image.png"],
-    creator: "@gabrielnpurba",
+    images: ["/images/avatarful.webp"],
+    creator: "@gabrielnathanaelpurba",
   },
   alternates: { canonical: BASE_URL },
 };
@@ -130,6 +131,7 @@ export default function RootLayout({
             <Footer />
             <BackToTop />
           </LenisProvider>
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>

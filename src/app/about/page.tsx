@@ -13,26 +13,29 @@ import {
 } from "@/lib/contentful/api";
 import { AboutPageClient } from "./AboutPageClient";
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Learn about Gabriel Nathanael Purba — a Full Stack Developer from Indonesia building performant web applications with Next.js, React, and TypeScript.",
+  description:
+    "Learn about Gabriel Nathanael Purba — a Full Stack Developer from Indonesia building web applications with Next.js, React, and Laravel.",
   alternates: { canonical: "https://www.gabrielnathanael.site/about" },
   openGraph: {
     title: "About — Gabriel Nathanael Purba",
-    description: "Learn about Gabriel Nathanael Purba — a Full Stack Developer from Indonesia.",
+    description:
+      "Learn about Gabriel Nathanael Purba — a Full Stack Developer from Indonesia.",
     url: "https://www.gabrielnathanael.site/about",
   },
 };
 
 export default async function AboutPage() {
-  const [profile, allProjects, allCertificates, allExperiences] = await Promise.all([
-    getProfile(),
-    getProjects(),
-    getCertificates(),
-    getExperiences(),
-  ]);
+  const [profile, allProjects, allCertificates, allExperiences] =
+    await Promise.all([
+      getProfile(),
+      getProjects(),
+      getCertificates(),
+      getExperiences(),
+    ]);
 
   const currentJobs = allExperiences.filter((e) => e.iscurrent);
 

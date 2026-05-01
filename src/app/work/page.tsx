@@ -8,7 +8,7 @@ import type { Metadata } from "next";
 import { getProjects, getTagsWithCategories } from "@/lib/contentful/api";
 import { WorkPageClient } from "./WorkPageClient";
 
-export const revalidate = 3600;
+export const revalidate = 21600;
 
 export const metadata: Metadata = {
   title: "Work",
