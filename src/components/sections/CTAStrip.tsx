@@ -104,14 +104,6 @@ export function CTAStrip() {
                 </svg>
               </Link>
             </motion.div>
-
-            <a
-              href="mailto:gabrielnathanael81@gmail.com"
-              className="text-label text-text-secondary hover:text-accent transition-colors duration-300"
-              style={{ fontFamily: "var(--font-mono)" }}
-            >
-              gabrielnathanael81@gmail.com
-            </a>
           </div>
         </div>
       </div>

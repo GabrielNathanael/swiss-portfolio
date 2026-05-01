@@ -428,6 +428,10 @@ export default function ContactPage() {
                       )}
                     </motion.button>
 
+                    <span className="text-text-tertiary text-sm" style={{ fontFamily: "var(--font-mono)" }}>
+                      or
+                    </span>
+
                     <a
                       href={`https://wa.me/${WA_NUMBER}?text=${WA_MESSAGE}`}
                       target="_blank"
