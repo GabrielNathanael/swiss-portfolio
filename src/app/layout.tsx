@@ -10,6 +10,7 @@ import { LenisProvider } from "@/lib/lenis";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { BackToTop } from "@/components/ui/BackToTop";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "@/app/globals.css";
 
 const BASE_URL = "https://www.gabrielnathanael.site";
@@ -132,6 +133,7 @@ export default function RootLayout({
             <BackToTop />
           </LenisProvider>
           <Analytics />
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>
