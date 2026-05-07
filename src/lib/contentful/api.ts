@@ -31,7 +31,9 @@ export async function getProjects(): Promise<Project[]> {
       include: 2, // Include linked entries (tags)
     });
 
-    return response.items.map(transformProject);
+    return response.items
+      .map(transformProject)
+      .sort((a, b) => (b.year || 0) - (a.year || 0));
   } catch (error) {
     console.error("Error fetching projects:", error);
     return [];
@@ -48,7 +50,9 @@ export async function getCertificates(): Promise<Certificate[]> {
       content_type: "certificate",
     });
 
-    return response.items.map(transformCertificate);
+    return response.items
+      .map(transformCertificate)
+      .sort((a, b) => Number(b.year || 0) - Number(a.year || 0));
   } catch (error) {
     console.error("Error fetching certificates:", error);
     return [];

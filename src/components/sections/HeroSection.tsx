@@ -11,7 +11,11 @@ import Link from "next/link";
 
 const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&";
 
-function useScramble(text: string, ref: React.RefObject<HTMLElement | null>, delay = 0) {
+function useScramble(
+  text: string,
+  ref: React.RefObject<HTMLElement | null>,
+  delay = 0,
+) {
   const scramble = useCallback(() => {
     let iteration = 0;
     const maxIterations = text.length * 3;
@@ -55,12 +59,7 @@ function ScrambleText({
   useScramble(text, ref, delay);
 
   return (
-    <span
-      ref={ref}
-      className={className}
-      style={style}
-      aria-label={text}
-    >
+    <span ref={ref} className={className} style={style} aria-label={text}>
       {text}
     </span>
   );
@@ -75,11 +74,15 @@ export function HeroSection() {
     if (!els) return;
     els.forEach((el, i) => {
       (el as HTMLElement).style.opacity = "0";
-      setTimeout(() => {
-        (el as HTMLElement).style.transition = "opacity 0.8s ease, transform 0.8s ease";
-        (el as HTMLElement).style.opacity = "1";
-        (el as HTMLElement).style.transform = "translateY(0)";
-      }, 900 + i * 100);
+      setTimeout(
+        () => {
+          (el as HTMLElement).style.transition =
+            "opacity 0.8s ease, transform 0.8s ease";
+          (el as HTMLElement).style.opacity = "1";
+          (el as HTMLElement).style.transform = "translateY(0)";
+        },
+        900 + i * 100,
+      );
       (el as HTMLElement).style.transform = "translateY(12px)";
     });
   }, []);
@@ -90,7 +93,11 @@ export function HeroSection() {
       className="relative min-h-screen flex flex-col overflow-hidden page-offset"
     >
       {/* Background grid lines */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{ opacity: 0.04 }}>
+      <div
+        className="absolute inset-0 pointer-events-none"
+        aria-hidden="true"
+        style={{ opacity: 0.04 }}
+      >
         {[...Array(13)].map((_, i) => (
           <div
             key={i}
@@ -108,8 +115,10 @@ export function HeroSection() {
       {/* Main content */}
       <div className="container-grid flex-1 flex flex-col justify-center py-10 md:py-14">
         <div className="relative">
-          <p className="hero-meta text-label text-[var(--color-text-tertiary)] mb-6"
-            style={{ fontFamily: "var(--font-mono)" }}>
+          <p
+            className="hero-meta text-label text-[var(--color-text-tertiary)] mb-6"
+            style={{ fontFamily: "var(--font-mono)" }}
+          >
             01 / INDEX
           </p>
 
@@ -209,12 +218,16 @@ export function HeroSection() {
       <div className="container-grid pb-8">
         <div className="hero-rule h-px bg-[var(--color-border)] mb-5" />
         <div className="flex items-center justify-between">
-          <span className="hero-meta text-label text-[var(--color-text-tertiary)]"
-            style={{ fontFamily: "var(--font-mono)" }}>
+          <span
+            className="hero-meta text-label text-[var(--color-text-tertiary)]"
+            style={{ fontFamily: "var(--font-mono)" }}
+          >
             Based in Indonesia
           </span>
-          <span className="hero-meta text-label text-[var(--color-text-tertiary)]"
-            style={{ fontFamily: "var(--font-mono)" }}>
+          <span
+            className="hero-meta text-label text-[var(--color-text-tertiary)]"
+            style={{ fontFamily: "var(--font-mono)" }}
+          >
             Available for freelance
           </span>
         </div>

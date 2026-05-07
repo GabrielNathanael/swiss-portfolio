@@ -19,7 +19,10 @@ interface WorkPageClientProps {
   tagCategories: Record<string, string[]>;
 }
 
-export function WorkPageClient({ projects, tagCategories }: WorkPageClientProps) {
+export function WorkPageClient({
+  projects,
+  tagCategories,
+}: WorkPageClientProps) {
   const [activeFilter, setActiveFilter] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const headerRef = useRef<HTMLDivElement>(null);
@@ -32,7 +35,7 @@ export function WorkPageClient({ projects, tagCategories }: WorkPageClientProps)
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
   const paginated = filtered.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+    currentPage * ITEMS_PER_PAGE,
   );
 
   useEffect(() => {
@@ -44,7 +47,7 @@ export function WorkPageClient({ projects, tagCategories }: WorkPageClientProps)
       gsap.fromTo(
         ".work-header-el",
         { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", stagger: 0.1 }
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", stagger: 0.1 },
       );
     }, headerRef);
     return () => ctx.revert();
@@ -53,7 +56,10 @@ export function WorkPageClient({ projects, tagCategories }: WorkPageClientProps)
   return (
     <div className="page-offset">
       {/* Page header */}
-      <div ref={headerRef} className="container-grid page-header border-b border-border">
+      <div
+        ref={headerRef}
+        className="container-grid page-header border-b border-border"
+      >
         <div className="swiss-grid items-end gap-y-6">
           <div className="col-span-12 md:col-span-8">
             <span
@@ -72,14 +78,20 @@ export function WorkPageClient({ projects, tagCategories }: WorkPageClientProps)
             >
               Selected
               <br />
-              <span style={{ color: "transparent", WebkitTextStroke: "1.5px var(--color-text-primary)" }}>
+              <span
+                style={{
+                  color: "transparent",
+                  WebkitTextStroke: "1.5px var(--color-text-primary)",
+                }}
+              >
                 Projects
               </span>
             </h1>
           </div>
           <div className="col-span-12 md:col-span-4">
             <p className="work-header-el text-text-secondary leading-relaxed text-sm">
-              Personal projects and products I've built — from dev tools to consumer apps.
+              Personal projects and products I've built — from dev tools to
+              consumer apps.
             </p>
           </div>
         </div>
@@ -176,13 +188,19 @@ export function WorkPageClient({ projects, tagCategories }: WorkPageClientProps)
                   key={project.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1], delay: i * 0.06 }}
+                  transition={{
+                    duration: 0.4,
+                    ease: [0.16, 1, 0.3, 1],
+                    delay: i * 0.06,
+                  }}
                   className="group flex flex-col"
                 >
                   {/* Image */}
                   <div
                     className={`relative w-full overflow-hidden bg-surface ${
-                      project.orientation === "vertical" ? "aspect-3/4" : "aspect-16/10"
+                      project.orientation === "vertical"
+                        ? "aspect-3/4"
+                        : "aspect-16/10"
                     }`}
                     style={{ borderRadius: "var(--radius-sm)" }}
                   >
@@ -201,7 +219,10 @@ export function WorkPageClient({ projects, tagCategories }: WorkPageClientProps)
                     <div className="absolute top-3 left-3 flex items-center gap-2">
                       <span
                         className="text-label text-bg/70 bg-text-primary/40 backdrop-blur-sm px-2 py-0.5"
-                        style={{ borderRadius: "var(--radius-sm)", fontFamily: "var(--font-mono)" }}
+                        style={{
+                          borderRadius: "var(--radius-sm)",
+                          fontFamily: "var(--font-mono)",
+                        }}
                       >
                         {project.projectType}
                       </span>
@@ -245,7 +266,10 @@ export function WorkPageClient({ projects, tagCategories }: WorkPageClientProps)
                               ? "border-accent text-accent"
                               : "border-border text-text-tertiary",
                           ].join(" ")}
-                          style={{ borderRadius: "var(--radius-sm)", fontFamily: "var(--font-mono)" }}
+                          style={{
+                            borderRadius: "var(--radius-sm)",
+                            fontFamily: "var(--font-mono)",
+                          }}
                         >
                           {t}
                         </span>
@@ -260,7 +284,10 @@ export function WorkPageClient({ projects, tagCategories }: WorkPageClientProps)
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1.5 text-label bg-accent text-bg px-4 py-2 hover:bg-accent-hover transition-colors duration-200"
-                          style={{ fontFamily: "var(--font-mono)", borderRadius: "var(--radius-sm)" }}
+                          style={{
+                            fontFamily: "var(--font-mono)",
+                            borderRadius: "var(--radius-sm)",
+                          }}
                         >
                           Live ↗
                         </a>
@@ -271,7 +298,10 @@ export function WorkPageClient({ projects, tagCategories }: WorkPageClientProps)
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1.5 text-label border border-border text-text-secondary px-4 py-2 hover:border-accent hover:text-accent transition-colors duration-200"
-                          style={{ fontFamily: "var(--font-mono)", borderRadius: "var(--radius-sm)" }}
+                          style={{
+                            fontFamily: "var(--font-mono)",
+                            borderRadius: "var(--radius-sm)",
+                          }}
                         >
                           GitHub ↗
                         </a>
@@ -301,7 +331,8 @@ export function WorkPageClient({ projects, tagCategories }: WorkPageClientProps)
               style={{ fontFamily: "var(--font-mono)" }}
             >
               {(currentPage - 1) * ITEMS_PER_PAGE + 1}–
-              {Math.min(currentPage * ITEMS_PER_PAGE, filtered.length)} of {filtered.length}
+              {Math.min(currentPage * ITEMS_PER_PAGE, filtered.length)} of{" "}
+              {filtered.length}
             </span>
             <div className="flex items-center gap-2">
               <button
@@ -311,32 +342,51 @@ export function WorkPageClient({ projects, tagCategories }: WorkPageClientProps)
                 style={{ borderRadius: "var(--radius-sm)" }}
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M9 2L4 7L9 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path
+                    d="M9 2L4 7L9 12"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <button
-                  key={page}
-                  onClick={() => setCurrentPage(page)}
-                  className={[
-                    "w-10 h-10 flex items-center justify-center border text-label transition-colors duration-200",
-                    currentPage === page
-                      ? "border-accent text-accent"
-                      : "border-border text-text-secondary hover:border-text-primary hover:text-text-primary",
-                  ].join(" ")}
-                  style={{ borderRadius: "var(--radius-sm)", fontFamily: "var(--font-mono)" }}
-                >
-                  {page}
-                </button>
-              ))}
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                (page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={[
+                      "w-10 h-10 flex items-center justify-center border text-label transition-colors duration-200",
+                      currentPage === page
+                        ? "border-accent text-accent"
+                        : "border-border text-text-secondary hover:border-text-primary hover:text-text-primary",
+                    ].join(" ")}
+                    style={{
+                      borderRadius: "var(--radius-sm)",
+                      fontFamily: "var(--font-mono)",
+                    }}
+                  >
+                    {page}
+                  </button>
+                ),
+              )}
               <button
-                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(totalPages, p + 1))
+                }
                 disabled={currentPage === totalPages}
                 className="w-10 h-10 flex items-center justify-center border border-border text-text-secondary hover:border-accent hover:text-accent disabled:opacity-30 disabled:cursor-not-allowed transition-colors duration-200"
                 style={{ borderRadius: "var(--radius-sm)" }}
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M5 2L10 7L5 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path
+                    d="M5 2L10 7L5 12"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
             </div>
