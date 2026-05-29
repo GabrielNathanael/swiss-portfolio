@@ -176,7 +176,7 @@ export function CertificatesPageClient({ certificates }: Props) {
       </div>
 
       {/* Grid */}
-      <div className="container-grid py-10 md:py-16">
+      <div className="container-grid py-6 md:py-10">
         <AnimatePresence mode="popLayout">
           <motion.div
             key={`${activeIssuer}-${currentPage}`}
@@ -255,7 +255,7 @@ export function CertificatesPageClient({ certificates }: Props) {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-between mt-14 pt-8 border-t border-border">
+          <div className="flex items-center justify-between mt-8 pt-6 border-t border-border">
             <span
               className="text-label text-text-tertiary"
               style={{ fontFamily: "var(--font-mono)" }}
@@ -362,7 +362,7 @@ export function CertificatesPageClient({ certificates }: Props) {
                   sizes="576px"
                 />
               </div>
-              <div className="p-5 md:p-6">
+              <div className="p-4 md:p-5">
                 <div className="flex items-start justify-between gap-4 mb-1">
                   <h3
                     className="font-bold text-text-primary"

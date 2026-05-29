@@ -18,7 +18,10 @@ interface TechStackProps {
   sectionNumber?: string;
 }
 
-export function TechStack({ variant = "landing", sectionNumber = "05" }: TechStackProps) {
+export function TechStack({
+  variant = "landing",
+  sectionNumber = "05",
+}: TechStackProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -27,7 +30,8 @@ export function TechStack({ variant = "landing", sectionNumber = "05" }: TechSta
         ".tech-category-block",
         { opacity: 0, y: 24 },
         {
-          opacity: 1, y: 0,
+          opacity: 1,
+          y: 0,
           duration: 0.6,
           ease: "power3.out",
           stagger: 0.08,
@@ -36,21 +40,18 @@ export function TechStack({ variant = "landing", sectionNumber = "05" }: TechSta
             start: "top 82%",
             once: true,
           },
-        }
+        },
       );
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="section-padding"
-    >
+    <section ref={sectionRef} className="section-padding">
       <AnimatedBorder />
       <div className="container-grid">
         {/* Header */}
-        <div className="flex items-end justify-between mb-10 md:mb-14">
+        <div className="flex items-end justify-between mb-6 md:mb-8">
           <div className="flex items-baseline gap-4">
             <span className="text-label text-text-tertiary">
               {sectionNumber}

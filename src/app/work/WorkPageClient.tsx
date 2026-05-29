@@ -6,7 +6,7 @@
  */
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
 import Image from "next/image";
@@ -19,13 +19,192 @@ interface WorkPageClientProps {
   tagCategories: Record<string, string[]>;
 }
 
+// ─── Project Modal ────────────────────────────────────────────────────────────
+function ProjectModal({
+  project,
+  onClose,
+}: {
+  project: Project;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [onClose]);
+
+  return (
+    <>
+      {/* Backdrop */}
+      <motion.div
+        key="modal-backdrop"
+        className="fixed inset-0 z-50"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.2 }}
+        style={{
+          backgroundColor: "rgba(0,0,0,0.72)",
+          backdropFilter: "blur(4px)",
+        }}
+        onClick={onClose}
+      />
+
+      {/* Scroll container — sits above backdrop, lets modal be centered even if taller than viewport */}
+      <div className="fixed inset-0 z-50 overflow-y-auto">
+        <div className="min-h-full flex items-center justify-center p-4 md:p-6">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.97, y: 16 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full md:max-w-4xl bg-bg border border-border overflow-hidden grid md:grid-cols-2"
+            style={{ borderRadius: "var(--radius-sm)" }}
+          >
+            {/* Close button — absolute, top-right, always visible */}
+            <button
+              onClick={onClose}
+              className="absolute top-3 right-3 z-20 w-9 h-9 flex items-center justify-center border border-border text-text-secondary hover:border-accent hover:text-accent transition-colors duration-200 bg-bg"
+              style={{ borderRadius: "var(--radius-sm)" }}
+              aria-label="Close"
+            >
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path
+                  d="M1 1L11 11M11 1L1 11"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </button>
+
+            {/* ── Image panel ── */}
+            <div className="bg-surface flex items-center justify-center p-6 min-h-[260px] md:min-h-[420px]">
+              <Image
+                src={project.image}
+                alt={project.title}
+                width={project.imageWidth}
+                height={project.imageHeight}
+                className="w-full h-auto object-contain max-h-[280px] md:max-h-[500px]"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+              />
+            </div>
+
+            {/* ── Detail panel ── */}
+            <div className="flex flex-col gap-4 overflow-y-auto md:max-h-[700px] p-6 pb-8">
+              {/* Type badge + year */}
+              <div className="flex items-center gap-3 flex-wrap pr-8">
+                <span
+                  className="text-label px-3 py-1 bg-text-primary text-bg"
+                  style={{
+                    borderRadius: "var(--radius-sm)",
+                    fontFamily: "var(--font-mono)",
+                  }}
+                >
+                  {project.projectType}
+                </span>
+                <span
+                  className="text-label text-text-tertiary"
+                  style={{ fontFamily: "var(--font-mono)" }}
+                >
+                  {project.year}
+                </span>
+              </div>
+
+              {/* Title */}
+              <h2
+                className="font-bold text-text-primary leading-tight"
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)",
+                  letterSpacing: "-0.03em",
+                }}
+              >
+                {project.title}
+              </h2>
+
+              {/* Description */}
+              <p className="text-text-secondary text-sm leading-relaxed grow">
+                {project.description}
+              </p>
+
+              {/* Tags */}
+              {project.tags.length > 0 && (
+                <div className="flex flex-wrap gap-1.5">
+                  {project.tags.map((t: string) => (
+                    <span
+                      key={t}
+                      className="text-label px-2 py-0.5 border border-border text-text-tertiary"
+                      style={{
+                        borderRadius: "var(--radius-sm)",
+                        fontFamily: "var(--font-mono)",
+                      }}
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {/* Links */}
+              {(project.demoUrl || project.githubUrl) && (
+                <div className="flex flex-wrap gap-3 mt-auto border-t border-border pt-5">
+                  {project.demoUrl && (
+                    <a
+                      href={project.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 inline-flex items-center justify-center gap-1.5 text-label bg-accent text-bg px-5 py-2.5 hover:bg-accent-hover transition-colors duration-200"
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        borderRadius: "var(--radius-sm)",
+                      }}
+                    >
+                      Live ↗
+                    </a>
+                  )}
+                  {project.githubUrl && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 inline-flex items-center justify-center gap-1.5 text-label border border-border text-text-secondary px-5 py-2.5 hover:border-accent hover:text-accent transition-colors duration-200"
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        borderRadius: "var(--radius-sm)",
+                      }}
+                    >
+                      GitHub ↗
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ─── Page Client ──────────────────────────────────────────────────────────────
 export function WorkPageClient({
   projects,
   tagCategories,
 }: WorkPageClientProps) {
   const [activeFilter, setActiveFilter] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const headerRef = useRef<HTMLDivElement>(null);
+  const openModal = useCallback((p: Project) => setSelectedProject(p), []);
+  const closeModal = useCallback(() => setSelectedProject(null), []);
 
   const filtered =
     activeFilter === "All"
@@ -172,7 +351,7 @@ export function WorkPageClient({
       </div>
 
       {/* Project grid */}
-      <div className="container-grid py-10 md:py-14">
+      <div className="container-grid py-6 md:py-10">
         <AnimatePresence mode="popLayout">
           {paginated.length > 0 ? (
             <motion.div
@@ -193,7 +372,8 @@ export function WorkPageClient({
                     ease: [0.16, 1, 0.3, 1],
                     delay: i * 0.06,
                   }}
-                  className="group flex flex-col"
+                  className="group flex flex-col cursor-pointer"
+                  onClick={() => openModal(project)}
                 >
                   {/* Image */}
                   <div
@@ -238,7 +418,7 @@ export function WorkPageClient({
                   </div>
 
                   {/* Info */}
-                  <div className="mt-4 flex-1 flex flex-col gap-3">
+                  <div className="mt-3 flex-1 flex flex-col gap-3">
                     <div>
                       <h2
                         className="font-bold text-text-primary"
@@ -250,7 +430,7 @@ export function WorkPageClient({
                       >
                         {project.title}
                       </h2>
-                      <p className="mt-1 text-text-secondary text-sm leading-relaxed line-clamp-2">
+                      <p className="mt-2 text-text-secondary text-sm leading-relaxed line-clamp-2">
                         {project.description}
                       </p>
                     </div>
@@ -276,8 +456,11 @@ export function WorkPageClient({
                       ))}
                     </div>
 
-                    {/* Links */}
-                    <div className="flex items-center gap-3 mt-auto pt-1">
+                    {/* Links — stop propagation so they don't open the modal */}
+                    <div
+                      className="flex items-center gap-3 mt-auto pt-3"
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       {project.demoUrl && (
                         <a
                           href={project.demoUrl}
@@ -306,6 +489,19 @@ export function WorkPageClient({
                           GitHub ↗
                         </a>
                       )}
+                      <button
+                        className="ml-auto inline-flex items-center gap-1.5 text-label border border-border text-text-secondary px-4 py-2 hover:border-accent hover:text-accent transition-colors duration-200"
+                        style={{
+                          fontFamily: "var(--font-mono)",
+                          borderRadius: "var(--radius-sm)",
+                        }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openModal(project);
+                        }}
+                      >
+                        Details →
+                      </button>
                     </div>
                   </div>
                 </motion.div>
@@ -393,6 +589,12 @@ export function WorkPageClient({
           </div>
         )}
       </div>
+      {/* Project modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectModal project={selectedProject} onClose={closeModal} />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

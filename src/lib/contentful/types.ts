@@ -107,6 +107,8 @@ export interface Project {
   title: string;
   description: string;
   image: string;
+  imageWidth: number;
+  imageHeight: number;
   tags: string[];
   githubUrl: string | null;
   demoUrl: string | null;
@@ -115,6 +117,7 @@ export interface Project {
   orientation: "vertical" | "horizontal";
   projectType: "Indie" | "Collab";
   sortOrder: number;
+  createdAt: string;
 }
 
 export interface Certificate {

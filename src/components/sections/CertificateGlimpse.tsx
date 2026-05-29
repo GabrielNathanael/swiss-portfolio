@@ -26,10 +26,22 @@ export function CertificateGlimpse({ certificates }: CertificateGlimpseProps) {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(".cert-card", { opacity: 0, y: 40 }, {
-        opacity: 1, y: 0, duration: 0.8, ease: "power3.out", stagger: 0.12,
-        scrollTrigger: { trigger: sectionRef.current, start: "top 78%", once: true },
-      });
+      gsap.fromTo(
+        ".cert-card",
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.12,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 78%",
+            once: true,
+          },
+        },
+      );
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -41,17 +53,26 @@ export function CertificateGlimpse({ certificates }: CertificateGlimpseProps) {
       <AnimatedBorder />
       <div className="container-grid">
         {/* Header */}
-        <div className="flex items-end justify-between mb-10 md:mb-14">
+        <div className="flex items-end justify-between mb-6 md:mb-8">
           <div className="flex items-baseline gap-4">
-            <span className="text-label text-[var(--color-text-tertiary)]">04</span>
+            <span className="text-label text-[var(--color-text-tertiary)]">
+              04
+            </span>
             <h2
               className="font-bold text-[var(--color-text-primary)]"
-              style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.5rem, 3vw, 2.5rem)", letterSpacing: "-0.03em" }}
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(1.5rem, 3vw, 2.5rem)",
+                letterSpacing: "-0.03em",
+              }}
             >
               Certificates
             </h2>
           </div>
-          <Link href="/certificates" className="group hidden md:flex items-center gap-3 text-label text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-300">
+          <Link
+            href="/certificates"
+            className="group hidden md:flex items-center gap-3 text-label text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-300"
+          >
             <span>View all</span>
             <span className="block w-6 h-px bg-current transition-all duration-300 group-hover:w-12" />
           </Link>
@@ -92,13 +113,20 @@ export function CertificateGlimpse({ certificates }: CertificateGlimpseProps) {
               <div className="mt-3">
                 <h3
                   className="font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-300 leading-snug text-sm"
-                  style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.01em" }}
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    letterSpacing: "-0.01em",
+                  }}
                 >
                   {cert.title}
                 </h3>
                 <div className="flex items-center justify-between mt-1.5">
-                  <span className="text-[var(--color-text-secondary)] text-xs">{cert.issuer}</span>
-                  <span className="text-label text-[var(--color-text-tertiary)] text-xs">{cert.year}</span>
+                  <span className="text-[var(--color-text-secondary)] text-xs">
+                    {cert.issuer}
+                  </span>
+                  <span className="text-label text-[var(--color-text-tertiary)] text-xs">
+                    {cert.year}
+                  </span>
                 </div>
               </div>
             </motion.div>
@@ -106,7 +134,10 @@ export function CertificateGlimpse({ certificates }: CertificateGlimpseProps) {
         </div>
 
         <div className="mt-6 md:hidden">
-          <Link href="/certificates" className="text-label text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors flex items-center gap-3">
+          <Link
+            href="/certificates"
+            className="text-label text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors flex items-center gap-3"
+          >
             <span>View all</span>
             <span className="block w-6 h-px bg-current" />
           </Link>

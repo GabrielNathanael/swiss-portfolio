@@ -1,6 +1,7 @@
 // src/app/layout.tsx
+
 import type { Metadata } from "next";
-import { syne, dmSans, spaceMono } from "@/lib/fonts";
+import { plusJakartaSans, manrope, sourceCodePro } from "@/lib/fonts";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -112,7 +113,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${syne.variable} ${dmSans.variable} ${spaceMono.variable}`}
+      className={`${plusJakartaSans.variable} ${manrope.variable} ${sourceCodePro.variable}`}
     >
       <head>
         <script

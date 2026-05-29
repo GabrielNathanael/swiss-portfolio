@@ -63,7 +63,20 @@ function CountUp({ value, suffix }: { value: number; suffix: string }) {
 function formatDate(dateStr: string | null): string {
   if (!dateStr) return "Present";
   const [year, month] = dateStr.split("-");
-  const names = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const names = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   return `${names[parseInt(month) - 1]} ${year}`;
 }
 
@@ -77,10 +90,10 @@ export function StatsSection({
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const stats: StatItem[] = [
-    { value: 1,                  suffix: "+", label: "Years of experience" },
-    { value: totalProjects,      suffix: "+", label: "Projects built" },
-    { value: totalCertificates,  suffix: "+", label: "Certificates earned" },
-    { value: totalExperiences,   suffix: "",  label: "Companies worked with" },
+    { value: 1, suffix: "+", label: "Years of experience" },
+    { value: totalProjects, suffix: "+", label: "Projects built" },
+    { value: totalCertificates, suffix: "+", label: "Certificates earned" },
+    { value: totalExperiences, suffix: "", label: "Companies worked with" },
   ];
 
   useEffect(() => {
@@ -89,7 +102,8 @@ export function StatsSection({
         ".stat-item",
         { opacity: 0, y: 24 },
         {
-          opacity: 1, y: 0,
+          opacity: 1,
+          y: 0,
           duration: 0.7,
           ease: "power3.out",
           stagger: 0.1,
@@ -98,13 +112,14 @@ export function StatsSection({
             start: "top 80%",
             once: true,
           },
-        }
+        },
       );
       gsap.fromTo(
         ".current-job",
         { opacity: 0, y: 16 },
         {
-          opacity: 1, y: 0,
+          opacity: 1,
+          y: 0,
           duration: 0.6,
           ease: "power3.out",
           scrollTrigger: {
@@ -112,7 +127,7 @@ export function StatsSection({
             start: "top 85%",
             once: true,
           },
-        }
+        },
       );
     }, sectionRef);
     return () => ctx.revert();
@@ -125,15 +140,12 @@ export function StatsSection({
         {/* Stats grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px border border-border">
           {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="stat-item p-6 md:p-8 bg-surface"
-            >
+            <div key={stat.label} className="stat-item p-4 md:p-5 bg-surface">
               <div
-                className="font-bold text-text-primary leading-none mb-2"
+                className="font-bold text-text-primary leading-none mb-1"
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: "clamp(2rem, 4vw, 3.5rem)",
+                  fontSize: "clamp(1.75rem, 3vw, 2.75rem)",
                   letterSpacing: "-0.04em",
                 }}
               >
@@ -151,7 +163,7 @@ export function StatsSection({
 
         {/* Currently working on */}
         {currentJobs.length > 0 && (
-          <div className="current-job mt-6 flex flex-col sm:flex-row sm:items-center gap-3">
+          <div className="current-job mt-4 flex flex-col sm:flex-row sm:items-center gap-3">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse shrink-0" />
               <span
@@ -164,9 +176,7 @@ export function StatsSection({
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 ml-4 sm:ml-0">
               {currentJobs.map((job, i) => (
                 <span key={job.id} className="flex items-center gap-3">
-                  {i > 0 && (
-                    <span className="text-border">·</span>
-                  )}
+                  {i > 0 && <span className="text-border">·</span>}
                   <span
                     className="font-medium text-text-primary text-sm"
                     style={{ fontFamily: "var(--font-body)" }}

@@ -150,7 +150,7 @@ export function AboutPageClient({
 
       {/* Bio */}
       <div className="about-body container-grid section-padding">
-        <div className="swiss-grid items-start gap-y-14 md:gap-y-0">
+        <div className="swiss-grid items-start gap-y-8 md:gap-y-0">
           {/* Photo */}
           <div className="about-body-el col-span-12 md:col-span-4">
             <div
@@ -177,19 +177,19 @@ export function AboutPageClient({
           </div>
 
           {/* Bio text */}
-          <div className="about-body-el col-span-12 md:col-span-7 md:col-start-6 flex flex-col gap-5">
+          <div className="about-body-el col-span-12 md:col-span-7 md:col-start-6 flex flex-col gap-4">
             <h2
               className="font-bold text-text-primary"
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(1.5rem, 3vw, 2.3rem)",
+                fontSize: "clamp(1.3rem, 2.5vw, 2rem)",
                 letterSpacing: "-0.03em",
               }}
             >
-              Hey, I'm Gabriel.
+              Hi, I'm Gabriel.
             </h2>
 
-            <div className="space-y-4 text-text-secondary leading-relaxed text-sm md:text-base">
+            <div className="space-y-3 text-text-secondary leading-relaxed text-sm md:text-base">
               <p>
                 I'm a Full Stack Developer based in Indonesia with{" "}
                 <span className="text-text-primary font-medium">1+ year</span>{" "}
@@ -212,14 +212,14 @@ export function AboutPageClient({
             </div>
 
             {/* Quick facts */}
-            <div className="grid grid-cols-2 gap-px border border-border mt-2">
+            <div className="grid grid-cols-2 gap-px border border-border mt-1">
               {[
                 { label: "Based in", value: "Indonesia" },
                 { label: "Focus", value: "Full Stack" },
                 { label: "Experience", value: "1+ year" },
                 { label: "Status", value: "Open to work" },
               ].map(({ label, value }) => (
-                <div key={label} className="p-4 bg-surface">
+                <div key={label} className="p-3 bg-surface">
                   <span
                     className="text-label text-text-tertiary block mb-1"
                     style={{ fontFamily: "var(--font-mono)" }}
@@ -234,7 +234,7 @@ export function AboutPageClient({
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-3 mt-1">
+            <div className="flex flex-wrap items-center gap-3">
               <Link
                 href="/contact"
                 className="inline-flex items-center gap-2 bg-accent text-bg text-label px-5 py-3 hover:bg-accent-hover transition-colors"
@@ -297,7 +297,7 @@ export function AboutPageClient({
       {/* Philosophy */}
       <div className="values-section border-t border-border">
         <div className="container-grid section-padding">
-          <div className="flex items-baseline gap-4 mb-10 md:mb-12">
+          <div className="flex items-baseline gap-4 mb-6 md:mb-8">
             <span
               className="text-label text-text-tertiary"
               style={{ fontFamily: "var(--font-mono)" }}
@@ -308,7 +308,7 @@ export function AboutPageClient({
               className="font-bold text-text-primary"
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(1.5rem, 3vw, 2.3rem)",
+                fontSize: "clamp(1.3rem, 2.5vw, 2rem)",
                 letterSpacing: "-0.03em",
               }}
             >
@@ -319,16 +319,16 @@ export function AboutPageClient({
             {values.map((v) => (
               <div
                 key={v.label}
-                className="value-card p-6 md:p-8 bg-surface hover:bg-surface-2 transition-colors duration-300"
+                className="value-card p-4 md:p-5 bg-surface hover:bg-surface-2 transition-colors duration-300"
               >
                 <span
-                  className="text-label text-accent block mb-3"
+                  className="text-label text-accent block mb-2"
                   style={{ fontFamily: "var(--font-mono)" }}
                 >
                   {v.label}
                 </span>
                 <h3
-                  className="font-bold text-text-primary mb-2"
+                  className="font-bold text-text-primary mb-1.5"
                   style={{
                     fontFamily: "var(--font-display)",
                     fontSize: "1.05rem",

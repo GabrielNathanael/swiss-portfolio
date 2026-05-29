@@ -45,8 +45,8 @@ function ProjectCard({
   }, []);
 
   const colClasses = {
-    large:  "col-span-12 md:col-span-7",
-    small:  "col-span-12 md:col-span-5",
+    large: "col-span-12 md:col-span-7",
+    small: "col-span-12 md:col-span-5",
     medium: "col-span-12 md:col-span-6",
   };
 
@@ -55,15 +55,15 @@ function ProjectCard({
     if (project.orientation === "vertical") {
       // Portrait — taller container
       return {
-        large:  "h-[420px] md:h-[580px]",
-        small:  "h-[380px] md:h-[520px]",
+        large: "h-[420px] md:h-[580px]",
+        small: "h-[380px] md:h-[520px]",
         medium: "h-[400px] md:h-[540px]",
       }[layoutVariant];
     }
     // Horizontal (default) — landscape
     return {
-      large:  "h-[300px] md:h-[420px]",
-      small:  "h-[260px] md:h-[340px]",
+      large: "h-[300px] md:h-[420px]",
+      small: "h-[260px] md:h-[340px]",
       medium: "h-[280px] md:h-[380px]",
     }[layoutVariant];
   };
@@ -78,10 +78,18 @@ function ProjectCard({
       onMouseLeave={handleMouseLeave}
       style={{
         transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-        transition: tilt.x === 0 && tilt.y === 0 ? "transform 0.6s ease" : "transform 0.1s ease",
+        transition:
+          tilt.x === 0 && tilt.y === 0
+            ? "transform 0.6s ease"
+            : "transform 0.1s ease",
       }}
     >
-      <Link href={primaryUrl} target="_blank" rel="noopener noreferrer" className="group block">
+      <Link
+        href={primaryUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group block"
+      >
         {/* Image container */}
         <div
           className={`relative overflow-hidden bg-[var(--color-surface)] ${imageHeight()}`}
@@ -92,14 +100,16 @@ function ProjectCard({
             alt={project.title}
             fill
             className={`transition-transform duration-700 ease-out group-hover:scale-105 ${
-              project.orientation === "vertical" ? "object-cover object-top" : "object-cover"
+              project.orientation === "vertical"
+                ? "object-cover object-top"
+                : "object-cover"
             }`}
             sizes="(max-width: 768px) 100vw, 50vw"
           />
           <motion.div
             className="absolute inset-0 bg-[var(--color-text-primary)]"
             initial={{ opacity: 0 }}
-            whileHover={{ opacity: 0.4 }}
+            whileHover={{ opacity: 0.6 }}
             transition={{ duration: 0.4 }}
           />
           <motion.div
@@ -110,7 +120,12 @@ function ProjectCard({
           >
             <span
               className="text-[#F4F1EC] font-bold"
-              style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1rem, 2.5vw, 1.8rem)" }}
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(1rem, 2.5vw, 1.8rem)",
+                textShadow:
+                  "0 2px 12px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.6)",
+              }}
             >
               Visit Project ↗
             </span>
@@ -126,7 +141,10 @@ function ProjectCard({
             </span>
             <span
               className="text-label text-[#F4F1EC]/60 border border-[#F4F1EC]/20 px-1.5 py-0.5"
-              style={{ borderRadius: "var(--radius-sm)", fontFamily: "var(--font-mono)" }}
+              style={{
+                borderRadius: "var(--radius-sm)",
+                fontFamily: "var(--font-mono)",
+              }}
             >
               {project.projectType}
             </span>
@@ -164,7 +182,10 @@ function ProjectCard({
             <span
               key={t}
               className="text-label text-[var(--color-text-tertiary)] border border-[var(--color-border)] px-2 py-0.5"
-              style={{ borderRadius: "var(--radius-sm)", fontFamily: "var(--font-mono)" }}
+              style={{
+                borderRadius: "var(--radius-sm)",
+                fontFamily: "var(--font-mono)",
+              }}
             >
               {t}
             </span>
@@ -184,7 +205,8 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
         ".project-card",
         { opacity: 0, y: 50 },
         {
-          opacity: 1, y: 0,
+          opacity: 1,
+          y: 0,
           duration: 0.9,
           ease: "power3.out",
           stagger: 0.15,
@@ -193,7 +215,7 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
             start: "top 75%",
             once: true,
           },
-        }
+        },
       );
     }, sectionRef);
     return () => ctx.revert();
@@ -201,14 +223,18 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
 
   if (projects.length === 0) return null;
 
-  const layoutVariants: Array<"large" | "small" | "medium"> = ["large", "small", "medium"];
+  const layoutVariants: Array<"large" | "small" | "medium"> = [
+    "large",
+    "small",
+    "medium",
+  ];
 
   return (
     <section ref={sectionRef} className="section-padding">
       <AnimatedBorder />
       <div className="container-grid">
         {/* Header */}
-        <div className="flex items-end justify-between mb-10 md:mb-14">
+        <div className="flex items-end justify-between mb-6 md:mb-8">
           <div className="flex items-baseline gap-4">
             <span
               className="text-label text-[var(--color-text-tertiary)]"
@@ -240,7 +266,12 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
         {/* Row 1: large + small */}
         <div className="swiss-grid gap-y-6 md:gap-y-8">
           {projects.slice(0, 2).map((p, i) => (
-            <ProjectCard key={p.id} project={p} index={i} layoutVariant={layoutVariants[i]} />
+            <ProjectCard
+              key={p.id}
+              project={p}
+              index={i}
+              layoutVariant={layoutVariants[i]}
+            />
           ))}
         </div>
 
@@ -248,7 +279,11 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
         {projects[2] && (
           <div className="swiss-grid mt-6 md:mt-8">
             <div className="col-span-12 md:col-start-4 md:col-span-6">
-              <ProjectCard project={projects[2]} index={2} layoutVariant="medium" />
+              <ProjectCard
+                project={projects[2]}
+                index={2}
+                layoutVariant="medium"
+              />
             </div>
           </div>
         )}

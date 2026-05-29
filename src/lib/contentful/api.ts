@@ -31,9 +31,10 @@ export async function getProjects(): Promise<Project[]> {
       include: 2, // Include linked entries (tags)
     });
 
-    return response.items
-      .map(transformProject)
-      .sort((a, b) => (b.year || 0) - (a.year || 0));
+    return response.items.map(transformProject).sort((a, b) => {
+      if (b.year !== a.year) return (b.year || 0) - (a.year || 0);
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
   } catch (error) {
     console.error("Error fetching projects:", error);
     return [];

@@ -1,22 +1,22 @@
-import { Syne, DM_Sans, Space_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Manrope, Source_Code_Pro } from "next/font/google";
 
-export const syne = Syne({
+export const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-display",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "700"],
   display: "swap",
 });
 
-export const dmSans = DM_Sans({
+export const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-body",
   weight: ["300", "400", "500"],
   display: "swap",
 });
 
-export const spaceMono = Space_Mono({
+export const sourceCodePro = Source_Code_Pro({
   subsets: ["latin"],
   variable: "--font-mono",
-  weight: ["400", "700"],
+  weight: ["400", "500"],
   display: "swap",
 });

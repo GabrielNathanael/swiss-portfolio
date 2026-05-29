@@ -22,7 +22,20 @@ interface ExperienceStripProps {
 function formatDate(dateStr: string | null): string {
   if (!dateStr) return "Present";
   const [year, month] = dateStr.split("-");
-  const names = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const names = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   return `${names[parseInt(month) - 1]} ${year}`;
 }
 
@@ -31,10 +44,22 @@ export function ExperienceStrip({ experiences }: ExperienceStripProps) {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(".exp-row", { opacity: 0, x: -30 }, {
-        opacity: 1, x: 0, duration: 0.7, ease: "power3.out", stagger: 0.12,
-        scrollTrigger: { trigger: sectionRef.current, start: "top 78%", once: true },
-      });
+      gsap.fromTo(
+        ".exp-row",
+        { opacity: 0, x: -30 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          stagger: 0.12,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 78%",
+            once: true,
+          },
+        },
+      );
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -46,12 +71,21 @@ export function ExperienceStrip({ experiences }: ExperienceStripProps) {
       <AnimatedBorder />
       <div className="container-grid">
         {/* Header */}
-        <div className="flex items-end justify-between" style={{ marginBottom: "2rem" }}>
+        <div
+          className="flex items-end justify-between"
+          style={{ marginBottom: "1.25rem" }}
+        >
           <div className="flex items-baseline gap-4">
-            <span className="text-label text-[var(--color-text-tertiary)]">03</span>
+            <span className="text-label text-[var(--color-text-tertiary)]">
+              03
+            </span>
             <h2
               className="font-bold text-[var(--color-text-primary)]"
-              style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.5rem, 3vw, 2.5rem)", letterSpacing: "-0.03em" }}
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(1.5rem, 3vw, 2.5rem)",
+                letterSpacing: "-0.03em",
+              }}
             >
               Experience
             </h2>
@@ -81,7 +115,11 @@ export function ExperienceStrip({ experiences }: ExperienceStripProps) {
                   <div className="flex items-center justify-between gap-2 mb-0.5">
                     <h3
                       className="font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-300 truncate"
-                      style={{ fontFamily: "var(--font-display)", fontSize: "1.05rem", letterSpacing: "-0.02em" }}
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontSize: "1.05rem",
+                        letterSpacing: "-0.02em",
+                      }}
                     >
                       {exp.company}
                     </h3>
@@ -96,7 +134,9 @@ export function ExperienceStrip({ experiences }: ExperienceStripProps) {
                       {exp.employmentType}
                     </span>
                   </div>
-                  <p className="text-[var(--color-text-secondary)] text-sm">{exp.position}</p>
+                  <p className="text-[var(--color-text-secondary)] text-sm">
+                    {exp.position}
+                  </p>
                   <p className="text-label text-[var(--color-text-tertiary)] mt-1">
                     {formatDate(exp.startDate)} — {formatDate(exp.endDate)}
                   </p>
@@ -112,11 +152,17 @@ export function ExperienceStrip({ experiences }: ExperienceStripProps) {
                   <div className="min-w-0">
                     <h3
                       className="font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-300 truncate"
-                      style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1rem, 1.8vw, 1.4rem)", letterSpacing: "-0.02em" }}
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontSize: "clamp(1rem, 1.8vw, 1.4rem)",
+                        letterSpacing: "-0.02em",
+                      }}
                     >
                       {exp.company}
                     </h3>
-                    <p className="text-[var(--color-text-secondary)] text-sm mt-0.5">{exp.position}</p>
+                    <p className="text-[var(--color-text-secondary)] text-sm mt-0.5">
+                      {exp.position}
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 shrink-0">
@@ -141,7 +187,10 @@ export function ExperienceStrip({ experiences }: ExperienceStripProps) {
         </div>
 
         <div className="mt-6 md:hidden">
-          <Link href="/experience" className="text-label text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors flex items-center gap-3">
+          <Link
+            href="/experience"
+            className="text-label text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors flex items-center gap-3"
+          >
             <span>Full history</span>
             <span className="block w-6 h-px bg-current" />
           </Link>

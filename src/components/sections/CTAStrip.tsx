@@ -36,7 +36,7 @@ export function CTAStrip() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 md:py-36 overflow-hidden">
+    <section ref={sectionRef} className="py-16 md:py-24 overflow-hidden">
       <AnimatedBorder />
       <div className="container-grid">
         <div className="cta-text">
