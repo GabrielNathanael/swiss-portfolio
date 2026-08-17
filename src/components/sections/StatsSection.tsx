@@ -190,7 +190,7 @@ export function StatsSection({
                     className="text-label text-text-tertiary"
                     style={{ fontFamily: "var(--font-mono)" }}
                   >
-                    {formatDate(job.startDate)} —
+                    {formatDate(job.startDate)} — {formatDate(job.endDate)}
                   </span>
                 </span>
               ))}

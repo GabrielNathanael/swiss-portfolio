@@ -193,8 +193,8 @@ export function AboutPageClient({
               <p>
                 I'm a Full Stack Developer based in Indonesia with{" "}
                 <span className="text-text-primary font-medium">1+ year</span>{" "}
-                of experience building web applications, currently studying
-                Computer Science at Universitas Pendidikan Ganesha.
+                of experience building web applications, and a Computer Science
+                graduate from Universitas Pendidikan Ganesha.
               </p>
               <p>
                 I work across the full stack using{" "}
@@ -215,7 +215,7 @@ export function AboutPageClient({
             <div className="grid grid-cols-2 gap-px border border-border mt-1">
               {[
                 { label: "Based in", value: "Indonesia" },
-                { label: "Focus", value: "Full Stack" },
+                { label: "GPA", value: "3.89" },
                 { label: "Experience", value: "1+ year" },
                 { label: "Status", value: "Open to work" },
               ].map(({ label, value }) => (

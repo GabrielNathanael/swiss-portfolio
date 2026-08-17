@@ -202,6 +202,19 @@ export function WorkPageClient({
   const [activeFilter, setActiveFilter] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  // Collapsed by default — no category keys in the set means all closed
+  const [openCategories, setOpenCategories] = useState<Set<string>>(new Set());
+  const toggleCategory = useCallback((category: string) => {
+    setOpenCategories((prev) => {
+      const next = new Set(prev);
+      if (next.has(category)) {
+        next.delete(category);
+      } else {
+        next.add(category);
+      }
+      return next;
+    });
+  }, []);
   const headerRef = useRef<HTMLDivElement>(null);
   const openModal = useCallback((p: Project) => setSelectedProject(p), []);
   const closeModal = useCallback(() => setSelectedProject(null), []);
@@ -315,36 +328,82 @@ export function WorkPageClient({
             </div>
 
             {/* Grouped categories */}
-            <div className="flex flex-wrap gap-x-8 gap-y-5">
-              {Object.entries(tagCategories).map(([category, tags]) => (
-                <div key={category} className="flex flex-col gap-2.5">
-                  {/* Category label */}
-                  <span
-                    className="text-label text-text-tertiary"
-                    style={{ fontFamily: "var(--font-mono)" }}
-                  >
-                    {category}
-                  </span>
-                  {/* Tags in this category */}
-                  <div className="flex flex-wrap gap-1.5">
-                    {tags.map((tag: string) => (
-                      <button
-                        key={tag}
-                        onClick={() => setActiveFilter(tag)}
-                        className={[
-                          "px-3 py-1.5 border text-xs font-medium tracking-widest uppercase transition-colors duration-200",
-                          activeFilter === tag
-                            ? "border-accent text-accent bg-accent/5"
-                            : "border-border text-text-secondary hover:border-text-primary hover:text-text-primary",
-                        ].join(" ")}
-                        style={{ borderRadius: "var(--radius-sm)" }}
+            <div className="flex flex-wrap gap-x-8 gap-y-3">
+              {Object.entries(tagCategories).map(([category, tags]) => {
+                const isOpen = openCategories.has(category);
+                // If this category contains the active filter, show a hint even when collapsed
+                const hasActiveTag = tags.includes(activeFilter);
+                return (
+                  <div key={category} className="flex flex-col gap-2.5">
+                    {/* Category label — click to expand/collapse */}
+                    <button
+                      onClick={() => toggleCategory(category)}
+                      className="flex items-center gap-1.5 text-label text-text-tertiary hover:text-text-primary transition-colors duration-200"
+                      style={{ fontFamily: "var(--font-mono)" }}
+                      aria-expanded={isOpen}
+                    >
+                      <motion.svg
+                        width="10"
+                        height="10"
+                        viewBox="0 0 10 10"
+                        fill="none"
+                        animate={{ rotate: isOpen ? 90 : 0 }}
+                        transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                       >
-                        {tag}
-                      </button>
-                    ))}
+                        <path
+                          d="M3 1L8 5L3 9"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </motion.svg>
+                      {category}
+                      {hasActiveTag && (
+                        <span
+                          className="w-1.5 h-1.5 rounded-full bg-accent"
+                          aria-hidden="true"
+                        />
+                      )}
+                    </button>
+
+                    {/* Tags in this category — animated collapse */}
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          key="content"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{
+                            duration: 0.25,
+                            ease: [0.16, 1, 0.3, 1],
+                          }}
+                          className="overflow-hidden"
+                        >
+                          <div className="flex flex-wrap gap-1.5">
+                            {tags.map((tag: string) => (
+                              <button
+                                key={tag}
+                                onClick={() => setActiveFilter(tag)}
+                                className={[
+                                  "px-3 py-1.5 border text-xs font-medium tracking-widest uppercase transition-colors duration-200",
+                                  activeFilter === tag
+                                    ? "border-accent text-accent bg-accent/5"
+                                    : "border-border text-text-secondary hover:border-text-primary hover:text-text-primary",
+                                ].join(" ")}
+                                style={{ borderRadius: "var(--radius-sm)" }}
+                              >
+                                {tag}
+                              </button>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

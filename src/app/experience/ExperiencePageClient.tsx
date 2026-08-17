@@ -68,9 +68,13 @@ export function ExperiencePageClient({ experiences }: Props) {
         { scaleY: 0 },
         {
           scaleY: 1,
-          duration: 1.5,
-          ease: "power3.out",
-          scrollTrigger: { trigger: ".exp-list", start: "top 80%", once: true },
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".exp-list",
+            start: "top 75%",
+            end: "bottom 60%",
+            scrub: 0.6,
+          },
         },
       );
     }, pageRef);
@@ -120,8 +124,14 @@ export function ExperiencePageClient({ experiences }: Props) {
         <div className="swiss-grid">
           <div className="col-span-12 md:col-start-2 md:col-span-10 relative">
             <div
-              className="timeline-line absolute left-0 top-6 bottom-6 w-px bg-border origin-top hidden md:block"
+              className="absolute left-0 top-6 bottom-6 w-px bg-border hidden md:block"
               style={{ left: "-1px" }}
+              aria-hidden="true"
+            />
+            <div
+              className="timeline-line absolute left-0 top-6 bottom-6 w-px bg-accent origin-top hidden md:block"
+              style={{ left: "-1px" }}
+              aria-hidden="true"
             />
             {experiences.map((exp: Experience, i: number) => (
               <div
@@ -158,16 +168,42 @@ export function ExperiencePageClient({ experiences }: Props) {
 
                   {/* Right: content */}
                   <div className="col-span-12 md:col-span-9">
-                    <h2
-                      className="font-bold text-text-primary group-hover:text-accent transition-colors duration-300 mb-2"
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontSize: "clamp(1.2rem, 2.5vw, 1.9rem)",
-                        letterSpacing: "-0.02em",
-                      }}
-                    >
-                      {exp.company}
-                    </h2>
+                    {exp.website ? (
+                      <a
+                        href={exp.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group/company inline-flex items-baseline gap-2 mb-2"
+                      >
+                        <h2
+                          className="font-bold text-text-primary group-hover:text-accent group-hover/company:underline underline-offset-4 decoration-1 transition-colors duration-300"
+                          style={{
+                            fontFamily: "var(--font-display)",
+                            fontSize: "clamp(1.2rem, 2.5vw, 1.9rem)",
+                            letterSpacing: "-0.02em",
+                          }}
+                        >
+                          {exp.company}
+                        </h2>
+                        <span
+                          className="text-label text-text-tertiary group-hover/company:text-accent transition-colors duration-300"
+                          aria-hidden="true"
+                        >
+                          ↗
+                        </span>
+                      </a>
+                    ) : (
+                      <h2
+                        className="font-bold text-text-primary group-hover:text-accent transition-colors duration-300 mb-2"
+                        style={{
+                          fontFamily: "var(--font-display)",
+                          fontSize: "clamp(1.2rem, 2.5vw, 1.9rem)",
+                          letterSpacing: "-0.02em",
+                        }}
+                      >
+                        {exp.company}
+                      </h2>
+                    )}
                     <p className="text-text-secondary text-sm mb-5">
                       {exp.position} · {exp.location}
                     </p>
@@ -192,7 +228,7 @@ export function ExperiencePageClient({ experiences }: Props) {
 
                     {/* Technologies */}
                     {exp.technologies.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mb-4">
+                      <div className="flex flex-wrap gap-2 mb-6">
                         {exp.technologies.map((t: string) => (
                           <span
                             key={t}
@@ -207,18 +243,25 @@ export function ExperiencePageClient({ experiences }: Props) {
 
                     {/* Project websites */}
                     {exp.projectWebsite && exp.projectWebsite.length > 0 && (
-                      <div className="flex flex-wrap gap-4 mt-3">
-                        {exp.projectWebsite.map((pw) => (
-                          <a
-                            key={pw.url}
-                            href={pw.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-label text-accent hover:underline"
-                          >
-                            {pw.title} ↗
-                          </a>
-                        ))}
+                      <div className="mt-2">
+                        <span className="text-label text-text-tertiary block mb-3">
+                          Related Projects
+                        </span>
+                        <div className="flex flex-wrap gap-3">
+                          {exp.projectWebsite.map((pw) => (
+                            <a
+                              key={pw.url}
+                              href={pw.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 text-label text-text-primary border border-border px-3.5 py-1.5 hover:border-accent hover:bg-accent hover:text-bg transition-colors duration-300"
+                              style={{ borderRadius: "var(--radius-sm)" }}
+                            >
+                              {pw.title}
+                              <span aria-hidden="true">↗</span>
+                            </a>
+                          ))}
+                        </div>
                       </div>
                     )}
                   </div>
