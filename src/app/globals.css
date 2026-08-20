@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Plus Jakarta Sans", sans-serif;
-  --font-body: "Manrope", sans-serif;
-  --font-mono: "Source Code Pro", monospace;
+  --font-display: "Playfair Display", serif;
+  --font-body: "Lora", serif;
+  --font-mono: "Cinzel", serif;
 
   /* Light Mode */
   --color-bg: #f4f1ec;

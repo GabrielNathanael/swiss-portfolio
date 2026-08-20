@@ -1,7 +1,7 @@
 // src/app/layout.tsx
 
 import type { Metadata } from "next";
-import { plusJakartaSans, manrope, sourceCodePro } from "@/lib/fonts";
+import { playfairDisplay, lora, cinzel } from "@/lib/fonts";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -113,7 +113,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${plusJakartaSans.variable} ${manrope.variable} ${sourceCodePro.variable}`}
+      className={`${playfairDisplay.variable} ${lora.variable} ${cinzel.variable}`}
     >
       <head>
         <script
