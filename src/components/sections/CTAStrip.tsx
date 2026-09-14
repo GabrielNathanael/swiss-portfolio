@@ -10,7 +10,11 @@ import { AnimatedBorder } from "@/components/ui/AnimatedBorder";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function CTAStrip() {
+interface CTAStripProps {
+  sectionNumber?: string;
+}
+
+export function CTAStrip({ sectionNumber = "06" }: CTAStripProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -45,7 +49,7 @@ export function CTAStrip() {
             className="text-label text-accent block mb-6"
             style={{ fontFamily: "var(--font-mono)" }}
           >
-            06 / LET'S CONNECT
+            {sectionNumber} / LET'S CONNECT
           </span>
 
           {/* Main text */}

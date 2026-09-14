@@ -60,7 +60,7 @@ export default async function HomePage() {
       <FeaturedProjects projects={featuredProjects} />
       <ExperienceStrip experiences={recentExperiences} />
       <CertificateGlimpse certificates={latestCertificates} />
-      <TechStack sectionNumber="06" />
+      <TechStack sectionNumber="05" />
       <CTAStrip />
     </>
   );

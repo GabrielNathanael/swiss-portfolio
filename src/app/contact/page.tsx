@@ -196,7 +196,7 @@ export default function ContactPage() {
             className="contact-el text-label text-accent block mb-4"
             style={{ fontFamily: "var(--font-mono)" }}
           >
-            06 / CONTACT
+            05 / CONTACT
           </span>
           <h1
             className="contact-el font-bold text-text-primary leading-none"
