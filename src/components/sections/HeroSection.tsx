@@ -123,7 +123,7 @@ export function HeroSection() {
           </p>
 
           {/* Name with scramble effect */}
-          <h1 className="leading-none tracking-tight select-none text-left md:text-center">
+          <h1 className="leading-none tracking-tight select-none text-left">
             {/* GABRIEL */}
             <div className="block overflow-hidden">
               <ScrambleText
@@ -140,10 +140,7 @@ export function HeroSection() {
             </div>
 
             {/* NATHANAEL — outlined, offset */}
-            <div
-              className="block overflow-hidden mt-1 md:mt-2"
-              style={{ paddingLeft: "clamp(0rem, 0vw, 6rem)" }} // Ganti dari 0.75rem ke 0 khusus mobile, atau gunakan kelas md:pl-[6rem]
-            >
+            <div className="block overflow-hidden mt-1 md:mt-2 pl-0 md:pl-[clamp(0.75rem,4vw,6rem)]">
               <ScrambleText
                 text="NATHANAEL"
                 className="block font-bold"
