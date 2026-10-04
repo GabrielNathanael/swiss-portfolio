@@ -64,16 +64,25 @@
       background-color 400ms ease,
       color 400ms ease;
     overflow-x: hidden;
-    cursor: none;
     display: flex;
     flex-direction: column;
     min-height: 100dvh;
   }
+}
 
+/* Hide default cursor only on devices with a mouse/trackpad */
+@media (hover: hover) and (pointer: fine) {
+  body,
   a,
   button,
-  [role="button"] {
-    cursor: none;
+  [role="button"],
+  input,
+  textarea,
+  select,
+  label,
+  [data-cursor-hover],
+  .cursor-pointer {
+    cursor: none !important;
   }
 }
 
@@ -201,30 +210,88 @@
 }
 
 /* ============================================
-   CUSTOM CURSOR
+   CUSTOM CURSOR (SWISS ROTATING CROSS)
    ============================================ */
-.cursor-dot {
+.custom-cursor-container {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--color-accent);
+  inset: 0;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 99999;
+  overflow: hidden;
+  transition: opacity 0.25s ease-out;
 }
 
-.cursor-ring {
+/* Master cursor tracker */
+.cursor-cross-tracker {
   position: fixed;
   top: 0;
   left: 0;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1.5px solid var(--color-accent);
   pointer-events: none;
-  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+
+/* Scaler: handles size changes and click squeeze */
+.cursor-cross-scaler {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  will-change: width, height, transform;
+  transition:
+    width 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.12s ease-out;
+  transform: scale(1);
+}
+
+/* Spinner: continuous smooth rotation */
+.cursor-cross-spinner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  animation: swissCrossRotate 3s linear infinite;
+  will-change: transform;
+}
+
+/* Corner framing brackets inside the SVG */
+.cursor-cross-bracket {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+/* Hover state: expands to 38px, slightly faster rotation, corner brackets appear */
+.cursor-cross-tracker.is-hovered .cursor-cross-scaler {
+  width: 38px;
+  height: 38px;
+}
+
+.cursor-cross-tracker.is-hovered .cursor-cross-spinner {
+  animation-duration: 3s;
+}
+
+.cursor-cross-tracker.is-hovered .cursor-cross-bracket {
+  opacity: 1;
+}
+
+/* Click state: tactile squeeze */
+.cursor-cross-tracker.is-clicking .cursor-cross-scaler {
+  transform: scale(0.78);
+}
+
+@keyframes swissCrossRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ============================================

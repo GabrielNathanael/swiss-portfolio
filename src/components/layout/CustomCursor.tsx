@@ -1,90 +1,208 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 export function CustomCursor() {
-  const dotX = useMotionValue(0);
-  const dotY = useMotionValue(0);
-  const isHovering = useRef(false);
-
-  const springConfig = { damping: 28, stiffness: 300, mass: 0.5 };
-  const ringX = useSpring(dotX, { damping: 35, stiffness: 200, mass: 0.8 });
-  const ringY = useSpring(dotY, { damping: 35, stiffness: 200, mass: 0.8 });
-
-  const dotScale = useSpring(1, springConfig);
-  const ringScale = useSpring(1, { damping: 25, stiffness: 150 });
-  const ringOpacity = useSpring(1, { damping: 25, stiffness: 150 });
+  const [isEnabled, setIsEnabled] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const trackerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Hide on touch devices
-    if (window.matchMedia("(pointer: coarse)").matches) return;
+    // 1. Mobile & Touchscreen Check
+    // Strictly disabled on touch devices / coarse pointers.
+    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
 
-    const handleMouseMove = (e: MouseEvent) => {
-      dotX.set(e.clientX);
-      dotY.set(e.clientY);
+    const checkPointer = () => {
+      setIsEnabled(mediaQuery.matches);
     };
 
-    const handleMouseEnter = () => {
-      isHovering.current = true;
-      dotScale.set(0);
-      ringScale.set(1.6);
-      ringOpacity.set(0.5);
-    };
+    checkPointer();
 
-    const handleMouseLeave = () => {
-      isHovering.current = false;
-      dotScale.set(1);
-      ringScale.set(1);
-      ringOpacity.set(1);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-
-    // Attach hover listeners to all interactive elements
-    const interactives = document.querySelectorAll(
-      "a, button, [role='button'], input, textarea, select, label"
-    );
-
-    interactives.forEach((el) => {
-      el.addEventListener("mouseenter", handleMouseEnter);
-      el.addEventListener("mouseleave", handleMouseLeave);
-    });
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener("change", checkPointer);
+    } else {
+      mediaQuery.addListener(checkPointer);
+    }
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      interactives.forEach((el) => {
-        el.removeEventListener("mouseenter", handleMouseEnter);
-        el.removeEventListener("mouseleave", handleMouseLeave);
-      });
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener("change", checkPointer);
+      } else {
+        mediaQuery.removeListener(checkPointer);
+      }
     };
-  }, [dotX, dotY, dotScale, ringScale, ringOpacity]);
+  }, []);
+
+  useEffect(() => {
+    if (!isEnabled) return;
+
+    let isVisible = false;
+    let isHovered = false;
+
+    // Zero-delay instant hardware tracking
+    const onMouseMove = (e: MouseEvent) => {
+      const x = e.clientX;
+      const y = e.clientY;
+
+      if (!isVisible) {
+        isVisible = true;
+        if (containerRef.current) {
+          containerRef.current.style.opacity = "1";
+        }
+      }
+
+      if (trackerRef.current) {
+        trackerRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+      }
+    };
+
+    const onMouseDown = () => {
+      if (trackerRef.current) {
+        trackerRef.current.classList.add("is-clicking");
+      }
+    };
+
+    const onMouseUp = () => {
+      if (trackerRef.current) {
+        trackerRef.current.classList.remove("is-clicking");
+      }
+    };
+
+    const onMouseLeave = () => {
+      isVisible = false;
+      if (containerRef.current) {
+        containerRef.current.style.opacity = "0";
+      }
+    };
+
+    const onMouseEnter = () => {
+      isVisible = true;
+      if (containerRef.current) {
+        containerRef.current.style.opacity = "1";
+      }
+    };
+
+    // Event delegation for interactive elements across all pages
+    const onMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
+      const interactive = target.closest(
+        'a, button, [role="button"], input, textarea, select, label, [data-cursor-hover], .cursor-pointer'
+      );
+
+      if (interactive && !isHovered) {
+        isHovered = true;
+        if (trackerRef.current) trackerRef.current.classList.add("is-hovered");
+      }
+    };
+
+    const onMouseOut = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
+      const interactive = target.closest(
+        'a, button, [role="button"], input, textarea, select, label, [data-cursor-hover], .cursor-pointer'
+      );
+
+      if (interactive && isHovered) {
+        // Prevent flicker when moving between child elements of the same interactive target
+        const related = e.relatedTarget as HTMLElement | null;
+        if (related && interactive.contains(related)) return;
+
+        isHovered = false;
+        if (trackerRef.current) trackerRef.current.classList.remove("is-hovered");
+      }
+    };
+
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    window.addEventListener("mousedown", onMouseDown);
+    window.addEventListener("mouseup", onMouseUp);
+    document.addEventListener("mouseleave", onMouseLeave);
+    document.addEventListener("mouseenter", onMouseEnter);
+    document.addEventListener("mouseover", onMouseOver, { passive: true });
+    document.addEventListener("mouseout", onMouseOut, { passive: true });
+
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("mouseup", onMouseUp);
+      document.removeEventListener("mouseleave", onMouseLeave);
+      document.removeEventListener("mouseenter", onMouseEnter);
+      document.removeEventListener("mouseover", onMouseOver);
+      document.removeEventListener("mouseout", onMouseOut);
+    };
+  }, [isEnabled]);
+
+  // Completely unmounted on mobile/touch screens: 0 DOM nodes, 0 memory, 0 stuck bugs
+  if (!isEnabled) return null;
 
   return (
-    <>
-      {/* Dot */}
-      <motion.div
-        className="cursor-dot"
-        style={{
-          x: dotX,
-          y: dotY,
-          scale: dotScale,
-          translateX: "-50%",
-          translateY: "-50%",
-        }}
-      />
-      {/* Ring */}
-      <motion.div
-        className="cursor-ring"
-        style={{
-          x: ringX,
-          y: ringY,
-          scale: ringScale,
-          opacity: ringOpacity,
-          translateX: "-50%",
-          translateY: "-50%",
-        }}
-      />
-    </>
+    <div
+      ref={containerRef}
+      className="custom-cursor-container"
+      aria-hidden="true"
+      style={{ opacity: 0 }}
+    >
+      <div ref={trackerRef} className="cursor-cross-tracker">
+        <div className="cursor-cross-scaler">
+          <div className="cursor-cross-spinner">
+            <svg
+              viewBox="0 0 32 32"
+              width="100%"
+              height="100%"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              {/* Precision Swiss Crosshair */}
+              <line
+                x1="16"
+                y1="4"
+                x2="16"
+                y2="28"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="square"
+              />
+              <line
+                x1="4"
+                y1="16"
+                x2="28"
+                y2="16"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="square"
+              />
+
+              {/* Precision Corner Brackets (appear on hover) */}
+              <path
+                d="M8 12V8h4"
+                stroke="currentColor"
+                strokeWidth="1.2"
+                className="cursor-cross-bracket"
+              />
+              <path
+                d="M20 8h4v4"
+                stroke="currentColor"
+                strokeWidth="1.2"
+                className="cursor-cross-bracket"
+              />
+              <path
+                d="M8 20v4h4"
+                stroke="currentColor"
+                strokeWidth="1.2"
+                className="cursor-cross-bracket"
+              />
+              <path
+                d="M20 24h4v-4"
+                stroke="currentColor"
+                strokeWidth="1.2"
+                className="cursor-cross-bracket"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
